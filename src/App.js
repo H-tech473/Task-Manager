@@ -21,6 +21,7 @@ function App() {
   const [ele, setele] = useState({add: {title: "", desc: "", dat: "", priority: 0}, view: {title: "", desc: "", dat: "", priority: 0}, replace: {id: -1}});
 
   useEffect(()=>{
+    setvirlist(list)
     localStorage.setItem('tasks', JSON.stringify(list));
   },[list])
 
@@ -51,6 +52,7 @@ function App() {
                 <div className='App-priority' style={{backgroundColor: val.priority==="High"?"var(--danger)":val.priority==="Medium"?"var(--warning)":"var(--success)"}}></div>
                 <div className='App-title'>{val.title}</div>
                 <div className='App-date' title={val.desc} onClick={()=>{
+                  setele({...ele, view: val, replace: {id: index}})
                   setstateo(2)
                 }}>due date: {val.dat}</div>
                 <div className='App-btns'>
@@ -103,6 +105,7 @@ function App() {
               list[ele.replace.id] = ele.add;
               setlist(list);
             }
+            setvirlist(list)
             setele({add: {title: "", desc: "", dat: "", priority: 0}, view: {title: "", desc: "", dat: "", priority: 0}, replace: {id: -1}})
             setstateo(0)
           }}>Save</button>
@@ -112,15 +115,17 @@ function App() {
 
         </div>
         <div className='View' style={{left: stateo===2?"":"100%"}}>
-          <div className='View-cont title'>Name of Task</div>
-          <div className='View-cont desc'>Desclskdjlkjsldlsjdlkjslkdjflksjdflksjlkfjslkjflksjldkjflskjdflkjslkfjldksjfbnmbcdsnkjhf</div>
-          <div className='View-cont due'>Due Date : 23-07-2023</div>
-          <div className='View-cont priority'>Priority: High</div>
+          <div className='View-cont title'>{ele.view.title}</div>
+          <div className='View-cont desc'>{ele.view.desc}</div>
+          <div className='View-cont due'>Due Date : {ele.view.dat}</div>
+          <div className='View-cont priority'>Priority: {ele.view.priority}</div>
 
           <button className='Edit' onClick={()=>{
+            setele({add: ele.view, view: {title: "", desc: "", dat: "", priority: 0}, replace: ele.replace})
             setstateo(1)
           }}>Edit</button>
           <button className='Back' onClick={()=>{
+            setele({add: {title: "", desc: "", dat: "", priority: 0}, view: {title: "", desc: "", dat: "", priority: 0}, replace: {id: -1}})
             setstateo(0)
           }}>Back</button>
       </div>
@@ -132,6 +137,7 @@ function App() {
           <button className='yes' onClick={()=>{
             list.splice(ele.delete.id, 1)
             setlist(list);
+            setvirlist(list);
             setele({add: {title: "", desc: "", dat: "", priority: 0}, view: {title: "", desc: "", dat: "", priority: 0}, replace: {id: -1}});
             setstateo(0);
           }}>Yes</button>
