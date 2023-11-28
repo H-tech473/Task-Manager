@@ -11,6 +11,7 @@ const getLocalList = () =>{
 }
 
 function App() {
+  const refresh = () => window.location.reload(true)
   const [list, setlist] = useState(getLocalList());
   const [virlist, setvirlist] = useState(list);
 
