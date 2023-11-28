@@ -1,15 +1,15 @@
 # Steps to Follow:
 
-## 1. Download the zip file to your system.
+1. Download the zip file to your system.
 
-## 2. Extract all the files in a folder and open it in VS Code.
+2. Extract all the files in a folder and open it in VS Code.
 
-## 3. After Opening the respective folder in VS Code, open new terminal (Shift + Ctrl + `) and run the command "npm run start".
+3. After Opening the respective folder in VS Code, open new terminal (Shift + Ctrl + `) and run the command "npm run start".
 
-# Live Demo
+## Live Demo
 The website has been deployed on render.com (link: https://taskify-dx37.onrender.com) But it is really unstable at the moment and may not load on the system.
 
-# Responsive
+## Responsive
 The website is responsive and can be used in both mobile phones and laptops.
 
 ## Ques 1: How long did you spend on the coding test? 
