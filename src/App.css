@@ -1,38 +1,527 @@
-.App {
-  text-align: center;
+:root {
+  --darker: #161A30;
+  --dark: #31304D;
+  --light: #B6BBC4;
+  --lighter: #F0ECE5;
+  --success: #2D9596;
+  --warning: #FDA769;
+  --danger: #AF2655;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  user-select: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body{
+  background-image: url('./components/images/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.App{
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  justify-content: center;
+}
+
+/* Bluring the background */
+.App > .covering{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background-color: rgba(23, 27, 48, 0.60);
+  backdrop-filter: blur(5px);
+}
+
+/* Main container of the site */
+.App > .App-cover2{
+  height: calc(100vh - 100px);
+  width: calc(100vw - 100px);
+  position: relative;
+  padding:10px 20px;
+  background-color: rgba(23, 27, 48, 0.80);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+}
+
+.label{
+  color: var(--light);
+  font-size: 25px;
+  font-weight: 400;
+}
+
+/* Searchbar Styling */
+.App-searchbar{
+  height: 70px;
+  width: 100%;
+  position: relative;
+  top: 10px;
+  overflow: hidden;
+  padding-left: 30px;
+  border-radius: 35px;
+  border: 2px solid var(--lighter);
+}
+
+.App-searchbar > input{
+  outline: none;
+  border: none;
+  height: 100%;
+  text-transform: capitalize;
+  width: 90%;
+  color: var(--lighter);
+  border-right: 2px solid var(--light);
+  font-size: 30px;
+  background-color: transparent;
+}
+
+.App-searchbar > button{
+  position: absolute;
+  height: 100%;
+  color: var(--lighter);
+  right: 0;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 40px;
+  cursor: pointer;
+  line-height: 75px;
+  width: 10%;  
+  transition: all .1s ease;
+  top: 0;
+}
+.App-searchbar > button:hover{
+  background-color: rgba(181, 187, 196, 0.4);
+}
+
+
+/* List grid */
+.App-Tasklist{
+  position: relative;
+  height: 70%;
+  top: 40px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Scrollbar styling */
+.App-Tasklist::-webkit-scrollbar {
+  width: 10px;
+}
+.App-Tasklist::-webkit-scrollbar-thumb {
+  background: var(--dark); 
+  border-radius: 5px;
+}
+.App-Tasklist::-webkit-scrollbar-thumb:hover {
+  background: var(--light); 
+}
+
+/* Tabs */
+.App-tasktab{
+  height: 160px;
+  width: calc(50% - 15px);
+  border-radius: 30px;
+  overflow: hidden;
+  position: absolute;
+  border: 4px solid var(--lighter);
+  left: var(--left);
+  right: var(--right);
+  top: calc(var(--val)/2 * 190px);
+}
+
+.App-priority{
+  position: absolute;
+  height: 100%;
+  left: 0;
+  width: 50px;
+}
+
+.App-title{
+  position: absolute;
+  height: 100%;
+  left: 50px;
+  line-height: 120px;
+  text-transform: capitalize;
+  color: var(--light);
+  font-size: 50px;
+  padding-left: 10px;
+  width: calc(100% - 120px);
+}
+
+.App-date{
+  position: absolute;
+  height: 100%;
+  left: 50px;
+  line-height: 200px;
+  text-transform: capitalize;
+  color: var(--light);
+  font-size: 20px;
+  padding-left: 10px;
+  width: calc(100% - 120px);
+}
+
+.App-btns{
+  position: absolute;
+  height: 100%;
+  right: 0;
+  background-color: var(--light);
+  width: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
+}
+
+.App-btns > button{
+  font-size: 30px;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  color: var(--dark);
+  cursor: pointer;
+  outline: none;
+  height: 50%;
+}
+
+.App-btns > button:hover{
+  color: var(--dark);
+}
+.App-btns > .editbtn:hover{
+  background-color: var(--warning);
+}
+.App-btns > .deletebtn:hover{
+  background-color: var(--danger);
+}
+
+/* Add button */
+.App-Add{
+  height: 80px;
+  width: 80px;
+  background-color: var(--dark);
+  color: var(--lighter);
+  position: absolute;
+  bottom: -30px;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  line-height: 95px;
+  border: 2px solid var(--light);
+  font-size: 50px;
+  right: -30px;
+}
+.App-Add:hover{
+  background-color: var(--success);
+}
+
+/* Hidden Compartment */
+.App-hidden{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  z-index: 8;
+  background-color: rgba(23, 27, 48, 0.70);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+/* Edit, Add and View Section */
+.App-hidden > .Edit,
+.App-hidden > .View{
+  position: absolute;
+  height: 600px;
+  width: 1000px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  right: -2px;
+  padding: 20px;
+  border: 2px solid var(--light);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: center;
+  transition: all .5s ease;
+  background-color: var(--darker);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.App-hidden > .View{
+  align-items: start;
+}
+
+.Edit > .Edit-cont{
+  width: 100%;
+  height: 60px;
+  color: var(--light);
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  justify-content: space-between;
+  font-size: 30px;
+}
+
+.Edit > .desc{
+  align-items: start;
+  padding-top: 10px;
+  height: 250px;
+}
+
+.Edit > .title > input,
+.Edit > .due > input{
+    width: 50%;
+    height: 100%;
+    font-size: 30px;
+    text-transform: capitalize;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid var(--lighter);
+    color: var(--lighter)
+}
+
+.Edit > .desc > textarea{
+  height: 100%;
+  width: 50%;
+  outline: none;
+  font-size: 30px;
+  background-color: transparent;
+  border: 2px solid var(--lighter);
+  padding: 10px;
+  color: var(--lighter);
+}
+
+.Edit > .due > input::-webkit-calendar-picker-indicator {
+  background-color: var(--light);
+}
+
+.Edit > .priority > .radgrp input{
+  display: none;
+}
+
+.Edit > .priority > .radgrp input{
+  display: none;
+}
+
+.Edit > .priority > .radgrp{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.Edit > .Save,
+.View > .Edit{
+  color: var(--lighter);
+  background-color: var(--success);
+  border: none;
+  outline: none;
+  position: absolute;
+  width: 150px;
+  height: 50px;
+  font-size: 27px;
+  border-radius: 10px;
+  bottom: -25px;
+  right: 190px;
+  cursor: pointer;
+}
+.Edit > .Cancel,
+.View > .Back{
+  color: var(--lighter);
+  background-color: var(--danger);
+  border: none;
+  outline: none;
+  position: absolute;
+  width: 150px;
+  height: 50px;
+  font-size: 27px;
+  cursor: pointer;
+  border-radius: 10px;
+  bottom: -25px;
+  right: 20px;
+}
+
+.Edit > button:hover,
+.View > button:hover{
+  border: 2px solid var(--lighter);
+}
+
+.View > .View-cont{
+  width: 80%;
+  height: 60px;
+  color: var(--light);
+  padding: 0 30px;
+  font-size: 30px;
+}
+.View > .desc{
+  align-items: start;
+  padding-top: 10px;
+  height: 180px;
+}
+.View > .title{
+  height: 100px;
+  font-size: 80px;
+  font-weight: 700;
+}
+
+.View > .desc{
+  word-break: break-all;
+}
+
+/* Pop up message */
+.App-hidden > .PopUp{
+  position: absolute;
+  height: 200px;
+  width: 800px;
+  background-color: var(--lighter);
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  transition: all .1s ease;
+}
+
+.PopUp > .labell{
+  color: var(--dark);
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.PopUp > .yes{
+  color: var(--lighter);
+  background-color: var(--success);
+  border: none;
+  outline: none;
+  position: absolute;
+  width: 100px;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 10px;
+  bottom: -20px;
+  right: 140px;
+  cursor: pointer;
+}
+.PopUp > .no{
+  color: var(--lighter);
+  background-color: var(--danger);
+  border: none;
+  outline: none;
+  position: absolute;
+  width: 100px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 10px;
+  bottom: -20px;
+  right: 20px;
+}
+
+.PopUp > button:hover{
+  border: 2px solid var(--light);
+}
+
+/* Responsiveness */
+@media screen and (max-width: 480px) {
+  .App > .App-cover2 {
+    width: 100vw;
+    height: calc(100vh - 50px);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
-  to {
-    transform: rotate(360deg);
+  .App{
+    align-items:end;
+  }
+
+  .label{
+    color: var(--lighter);
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  .App-searchbar{
+    position: relative;
+    left: -20px;
+    width: calc(100% + 40px);
+    border-radius: 0;
+    border: none;
+    height: 50px;
+    border-bottom: 2px solid var(--lighter);
+  }
+  .App-searchbar > input{
+    width: 80%;
+    font-size: 25px;
+    font-weight: 500;
+    border: none;
+  }
+  .App-searchbar > button{
+    width: calc(20% - 10px);
+    background-color: rgba(181, 187, 196, 0.4);
+    font-size: 30px;
+    line-height: 55px;
+  }
+
+  .App-Tasklist{
+    height: 65%;
+    width: calc(100% + 40px);
+    padding-left: 10px;
+    left: -20px;
+  }
+
+  .App-tasktab{
+    height: 160px;
+    width: calc(100% - 20px);
+    left: 0px;
+    position: relative;
+    top: calc(var(--ind) * 20px);
+  }
+
+  .App-title{
+    font-size: 40px;
+    line-height: 130px;
+  }
+  
+  .App-date{
+    font-size: 15px;
+    line-height: 190px;
+  }
+
+  .App-Add{
+    height: 10%;
+    width: 100%;
+    bottom: 50px;
+    left: 0;
+    position: absolute;
+    border-radius: 0;
+    text-align: center;
+    line-height: 95px;
+    border: none;
+    font-size: 50px;
+  }
+
+  .App-hidden > .PopUp{
+    position: absolute;
+    height: 150px;
+    width: 300px;
+    padding: 20px;
+    border-radius: 30px;
+  }
+  
+  .PopUp > .label{
+    font-size: 16px;
+    font-weight: 700;
   }
 }
